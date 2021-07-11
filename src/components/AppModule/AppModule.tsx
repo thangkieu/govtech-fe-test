@@ -5,16 +5,11 @@ import { Typography } from '../Typography';
 import { Error } from '../Error';
 import { useCallback } from 'react';
 
-type AppModuleData = {
-  photo: string;
-  name: string;
-  desc: string;
-  title: string;
-};
-
 interface AppModuleProps {
+  className?: string;
   data: AppModuleData;
   disabled?: boolean;
+  defaultPhoto?: string;
 }
 
 const AppModuleStyle = styled.div<{ disabled?: boolean }>`
@@ -23,12 +18,14 @@ const AppModuleStyle = styled.div<{ disabled?: boolean }>`
   border-radius: 10px;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
+  border: 1px solid ${(p) => p.theme.colors.border};
 
   ${(p) =>
     p.disabled
       ? css`
           cursor: not-allowed;
           opacity: 0.5;
+          box-shadow: none;
         `
       : css`
           cursor: pointer;
@@ -48,7 +45,7 @@ const Title = styled(Typography)`
 `;
 
 const Photo = styled.div`
-  padding-bottom: 30%;
+  padding-bottom: 40%;
   position: relative;
   overflow: hidden;
   max-height: 300px;
@@ -62,32 +59,37 @@ const Photo = styled.div`
   }
 `;
 
-export const AppModule: FC<AppModuleProps> = memo(({ data, disabled }) => {
-  const history = useHistory();
+export const AppModule: FC<AppModuleProps> = memo(
+  ({ data, disabled, defaultPhoto, className }) => {
+    const history = useHistory();
 
-  const handleClick = useCallback(() => {
-    history.push(`/apps/${data.name}`);
-  }, [history, data]);
+    const handleClick = useCallback(() => {
+      history.push(`/apps/${data.name}`);
+    }, [history, data]);
 
-  if (!data) return <Error message="Component Render Error" />;
+    if (!data) return <Error message="Component Render Error" />;
 
-  return (
-    <AppModuleStyle
-      role="button"
-      disabled={disabled}
-      onClick={!disabled ? handleClick : undefined}
-    >
-      <Photo>
-        <img src={data.photo} alt={data.desc} />
-      </Photo>
-      <AppModuleContent>
-        <Title type="h3" weight="bold">
-          {data.title}
-        </Title>
-      </AppModuleContent>
-    </AppModuleStyle>
-  );
-});
+    return (
+      <AppModuleStyle
+        role="button"
+        disabled={disabled}
+        onClick={!disabled ? handleClick : undefined}
+        className={className}
+      >
+        {(data.photo || defaultPhoto) && (
+          <Photo>
+            <img src={data.photo || defaultPhoto} alt={data.desc} />
+          </Photo>
+        )}
+        <AppModuleContent>
+          <Title type="h3" weight="bold">
+            {data.title}
+          </Title>
+        </AppModuleContent>
+      </AppModuleStyle>
+    );
+  }
+);
 
 AppModule.defaultProps = {
   disabled: false,

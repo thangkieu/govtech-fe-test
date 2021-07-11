@@ -1,8 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-
-const API_URL =
-  process.env.REACT_APP_API_URL ||
-  'https://nomination-server-assignment.herokuapp.com/api';
+import { getRequest } from '../services/base-api';
 
 export function useGetRequest<T>(url: string, options?: RequestInit) {
   const [loading, setLoading] = useState(false);
@@ -13,16 +10,9 @@ export function useGetRequest<T>(url: string, options?: RequestInit) {
     setLoading(true);
 
     const controller = new AbortController();
-    fetch(`${API_URL}${url}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    getRequest(url, {
       signal: controller.signal,
     })
-      .then((resp) => {
-        return resp.json();
-      })
       .then((data) => {
         setData(data);
         setLoading(false);

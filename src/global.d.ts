@@ -17,3 +17,20 @@ type FetchTokenRespSuccess = {
 type RequestOTPSuccess = {
   message: string;
 };
+
+type AppModuleData = {
+  photo: string;
+  name: string;
+  desc: string;
+  title: string;
+};
+
+type FetchAppRespSuccess = {
+  apps: AppModuleData[];
+};
+
+type User = {
+  email: string;
+  name: string;
+  permissions: string[];
+};

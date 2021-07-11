@@ -29,6 +29,8 @@ export const GlobalStyle = createGlobalStyle`
   
   button { color: inherit; }
   
+  .icon { width: 1em; height: 1em }
+  
   @keyframes spin {
     from {
       transform: rotate(0);

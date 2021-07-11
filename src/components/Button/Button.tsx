@@ -1,7 +1,7 @@
 import React, { memo, FC, ButtonHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { RefreshIcon } from '../Icons';
+import { LoadingIcon } from '../Icons';
 
 interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
@@ -82,9 +82,7 @@ const LinkStyle = styled(Link)<{ hasIcon?: boolean }>`
   ${(p) => p.hasIcon && iconStyle}
 `;
 
-const LoadingIcon = styled(RefreshIcon)`
-  animation: spin 1.5s linear infinite;
-
+const LoadingIconStyle = styled(LoadingIcon)`
   && {
     margin: 0 0.5em 0 0;
   }
@@ -109,7 +107,7 @@ export const Button: FC<ButtonProps> = memo(
         hasIcon={Boolean(icon) || loading}
         disabled={disabled || loading}
       >
-        {loading && <LoadingIcon />}
+        {loading && <LoadingIconStyle />}
         {children}
         {icon}
       </ButtonStyle>

@@ -9,6 +9,7 @@ export const routes = [
   {
     path: '/',
     exact: true,
+    auth: true,
     component: loadable(() => import('../pages/DashboardPage')),
   },
 ];
