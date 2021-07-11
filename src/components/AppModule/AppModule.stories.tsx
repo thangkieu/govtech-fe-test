@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { AppModule as AppModuleCmp } from './AppModule';
 
 export default {
-  title: 'AppModule',
+  title: 'App Module',
   component: AppModuleCmp,
 } as ComponentMeta<typeof AppModuleCmp>;
 

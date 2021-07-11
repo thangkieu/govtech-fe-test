@@ -9,7 +9,7 @@ interface HeaderProps {}
 
 const HeaderStyle = styled.header`
   box-shadow: 0 2px 2px #ddd;
-  background-color: white;
+  background-color: ${(p) => p.theme.colors.primary};
 `;
 
 const HeaderContent = styled(Container)`
@@ -18,12 +18,18 @@ const HeaderContent = styled(Container)`
   align-items: center;
 `;
 
+const ButtonStyle = styled(Button)`
+  color: white;
+`;
+
 export const Header: FC<HeaderProps> = memo((props) => {
   return (
     <HeaderStyle>
       <HeaderContent>
         <Link to="/">Logo</Link>
-        <Button icon={<ExitIcon />}>Logout</Button>
+        <ButtonStyle outline={false} icon={<ExitIcon />}>
+          Logout
+        </ButtonStyle>
       </HeaderContent>
     </HeaderStyle>
   );

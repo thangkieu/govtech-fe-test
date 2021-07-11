@@ -1,9 +1,16 @@
-import React, { memo, FC, HTMLAttributes } from 'react';
+import React, { memo, FC, InputHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
+import { Typography } from '../Typography';
+import { Label } from '../Typography/TypoVariant';
 
-interface InputProps extends HTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   block?: boolean;
+  label?: string | React.ReactNode;
 }
+
+const Field = styled.div`
+  margin-bottom: 1rem;
+`;
 
 const InputStyle = styled.input<Pick<InputProps, 'block'>>`
   box-sizing: border-box;
@@ -24,8 +31,13 @@ const InputStyle = styled.input<Pick<InputProps, 'block'>>`
   }
 `;
 
-export const Input: FC<InputProps> = memo(({ block, ...props }) => {
-  return <InputStyle block={block} {...props} />;
+export const Input: FC<InputProps> = memo(({ label, block, ...props }) => {
+  return (
+    <Field>
+      {label && <Label>{label}</Label>}
+      <InputStyle block={block} {...props} />
+    </Field>
+  );
 });
 
 Input.defaultProps = {};

@@ -1,6 +1,7 @@
 import React, { memo, FC, ButtonHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+import { RefreshIcon } from '../Icons';
 
 interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
@@ -10,6 +11,7 @@ interface ButtonProps
   to?: string;
   icon?: React.ReactNode;
   outline?: boolean;
+  loading?: boolean;
 }
 
 const iconStyle = css`
@@ -41,6 +43,7 @@ const ButtonStyle = styled.button<
   line-height: 1.6;
   cursor: pointer;
   border: 0;
+  transition: all 0.3 ease;
 
   ${(p) =>
     p.outline &&
@@ -60,7 +63,10 @@ const ButtonStyle = styled.button<
 
   &:disabled {
     background-color: ${(p) => p.theme.colors.disabled};
+    border-color: ${(p) => p.theme.colors.disabled};
+    color: inherit;
     cursor: not-allowed;
+    opacity: 0.5;
   }
 `;
 
@@ -76,8 +82,16 @@ const LinkStyle = styled(Link)<{ hasIcon?: boolean }>`
   ${(p) => p.hasIcon && iconStyle}
 `;
 
+const LoadingIcon = styled(RefreshIcon)`
+  animation: spin 1.5s linear infinite;
+
+  && {
+    margin: 0 0.5em 0 0;
+  }
+`;
+
 export const Button: FC<ButtonProps> = memo(
-  ({ children, htmlType, type, to, icon, ...props }) => {
+  ({ children, htmlType, type, to, icon, loading, disabled, ...props }) => {
     if (type === 'link' && to) {
       return (
         <LinkStyle to={to} hasIcon={Boolean(icon)}>
@@ -92,8 +106,10 @@ export const Button: FC<ButtonProps> = memo(
         {...props}
         type={htmlType}
         buttonType={type}
-        hasIcon={Boolean(icon)}
+        hasIcon={Boolean(icon) || loading}
+        disabled={disabled || loading}
       >
+        {loading && <LoadingIcon />}
         {children}
         {icon}
       </ButtonStyle>

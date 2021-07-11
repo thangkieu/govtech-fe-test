@@ -3,6 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Button as ButtonCmp } from './Button';
 import { ExitIcon } from '../Icons';
+import { postRequest } from '../../services/auth';
 
 export default {
   title: 'Button',
@@ -43,4 +44,16 @@ export const IconButton = Template.bind({});
 IconButton.args = {
   children: 'Logout',
   icon: <ExitIcon />,
+  onClick() {
+    postRequest('/v1/auth/get_otp_email', {
+      email: 'thang.kieu@2359media.com',
+    });
+  },
+};
+
+export const LoadingButton = Template.bind({});
+LoadingButton.args = {
+  children: 'Loading',
+  icon: <ExitIcon />,
+  loading: true,
 };

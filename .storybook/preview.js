@@ -3,7 +3,7 @@ import { withThemesProvider } from 'storybook-addon-styled-component-theme';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { theme } from '../src/theme';
+import { theme } from '../src/app/theme';
 import { GlobalStyle } from '../src/components/GlobalStyles';
 
 const themes = [theme];

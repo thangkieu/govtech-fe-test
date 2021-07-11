@@ -10,6 +10,17 @@ declare module 'styled-components' {
       bg: string;
       link: string;
       disabled: string;
+      tableHeader: string;
+      tableRowEven: string;
+      danger: string;
+      subtle: string;
+      success: string;
+      text: string;
+    };
+    spacing: {
+      sm: string;
+      md: string;
+      lg: string;
     };
   }
 }
