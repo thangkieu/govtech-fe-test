@@ -4,11 +4,6 @@ import { Typography } from '../Typography';
 import { Error } from '../Error';
 import { useMemo } from 'react';
 
-type Milestone = {
-  step: number;
-  label: string;
-};
-
 interface MilestonesProps {
   milestones: Milestone[];
   activeStep: number;

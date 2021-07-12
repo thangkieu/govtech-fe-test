@@ -1,11 +1,13 @@
-import React, { memo } from 'react';
-import styled from 'styled-components';
+import React, { FC, memo } from 'react';
 import { Container } from '../CommonStyles';
 import { Header } from '../Header';
 
-export const LayoutBasic = memo((props) => {
+interface LayoutProps {
+  className?: string;
+}
+export const LayoutBasic: FC<LayoutProps> = memo((props) => {
   return (
-    <main>
+    <main className={props.className}>
       <Header />
       <Container>{props.children}</Container>
     </main>

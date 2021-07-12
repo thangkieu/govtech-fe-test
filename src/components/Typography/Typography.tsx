@@ -20,10 +20,14 @@ export interface TypographyProps {
   className?: string;
   appearance?: 'danger' | 'subtle' | 'success';
   space?: 'sm' | 'md' | 'lg' | 'none';
+  align?: 'center' | 'left' | 'right';
 }
 
 const TypoStyle = styled.p<
-  Pick<TypographyProps, 'weight' | 'fontStyle' | 'appearance' | 'space'>
+  Pick<
+    TypographyProps,
+    'weight' | 'fontStyle' | 'appearance' | 'space' | 'align'
+  >
 >`
   ${(p) => generateStyle(p)}
 `;
@@ -38,6 +42,7 @@ export const Typography: FC<TypographyProps> = memo((props) => {
       className={props.className}
       appearance={props.appearance}
       space={props.space}
+      align={props.align}
     >
       {props.children}
     </TypoStyle>

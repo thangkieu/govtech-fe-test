@@ -10,14 +10,14 @@ export default {
 } as ComponentMeta<typeof TypoComp>;
 
 const Template: ComponentStory<typeof TypoComp> = (args) => {
-  const [items, setItems] = useState(args.selectedItems);
+  const [items, setItems] = useState(args.defaultItems);
 
-  return <TypoComp {...args} selectedItems={items} onChange={setItems} />;
+  return <TypoComp {...args} defaultItems={items} onChange={setItems} />;
 };
 
 export const MultipleInput = Template.bind({});
 MultipleInput.args = {
   placeholder: 'MultipleInput control',
-  selectedItems: ['kqth@gmail.com', 'td@gmail.com'],
+  defaultItems: ['kqth@gmail.com', 'td@gmail.com'],
   pattern: 'email',
 };

@@ -1,15 +1,20 @@
 import React, { memo, FC, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { isValid, PatternType } from '../../utils/helpers';
-import { CancelIcon } from '../Icons';
-import { ErrorMsg } from '../Typography/TypoVariant';
+import { TagItem } from '../TagItem';
+import { ErrorMsg, Label } from '../Typography/TypoVariant';
 
 interface InputProps {
   placeholder?: string;
-  selectedItems?: string[];
+  defaultItems?: string[];
   pattern?: PatternType;
+  label?: string;
   onChange?(payload: string[]): void;
 }
+
+const Field = styled.div`
+  margin-bottom: 1.5rem;
+`;
 
 const InputStyle = styled.div`
   padding: 0.5em 0.5em 0 0.5em;
@@ -18,39 +23,14 @@ const InputStyle = styled.div`
   border-radius: 0.5em;
   display: flex;
   flex-wrap: wrap;
+  min-height: 71px;
+  align-items: flex-start;
 
   &:focus {
     border-color: ${(p) => p.theme.colors.primary};
     box-shadow: 0 0 0 2px #1890ff33;
   }
 `;
-
-const ItemStyle = styled.span`
-  line-height: 1.3;
-  padding: 0 0.3em 0 0.5em;
-  background-color: ${(p) => p.theme.colors.primary};
-  border-radius: 4px;
-  color: white;
-  margin: 0 0.5em 0.5em 0;
-  display: inline-flex;
-  align-items: center;
-
-  svg {
-    width: 1.4em;
-    height: 1.4em;
-    padding: 0.2em;
-    fill: currentColor;
-    margin-left: 0.3em;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-`;
-
 const InputCursor = styled.span<Pick<InputProps, 'placeholder'>>`
   line-height: 1.3;
   padding: 0.2em 0.5em;
@@ -65,9 +45,6 @@ const InputCursor = styled.span<Pick<InputProps, 'placeholder'>>`
 
       &:empty::before {
         content: '${p.placeholder}';
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
         color: #898989;
         z-index: -1;
       }
@@ -75,7 +52,8 @@ const InputCursor = styled.span<Pick<InputProps, 'placeholder'>>`
 `;
 
 export const MultipleInput: FC<InputProps> = memo(
-  ({ onChange, selectedItems, pattern, ...props }) => {
+  ({ onChange, defaultItems, pattern, label, placeholder }) => {
+    const [selectedItems, setSelectedItems] = useState(defaultItems);
     const [error, setError] = useState('');
 
     const validateValue = useCallback(
@@ -90,6 +68,14 @@ export const MultipleInput: FC<InputProps> = memo(
       [pattern]
     );
 
+    const updateItems = useCallback(
+      (items) => {
+        setSelectedItems(items);
+        onChange?.(items);
+      },
+      [onChange]
+    );
+
     const handleKeyDown: React.KeyboardEventHandler<HTMLSpanElement> = useCallback(
       (event) => {
         const value: string = event.currentTarget.textContent || '';
@@ -102,7 +88,7 @@ export const MultipleInput: FC<InputProps> = memo(
           selectedItems.length > 0
         ) {
           // remove latest item
-          onChange?.(selectedItems.slice(0, selectedItems.length - 1));
+          updateItems(selectedItems.slice(0, selectedItems.length - 1));
 
           return;
         }
@@ -119,42 +105,39 @@ export const MultipleInput: FC<InputProps> = memo(
 
         if (newSelectedItems.indexOf(value) > -1) return;
 
-        onChange?.([...newSelectedItems, value]);
+        updateItems([...newSelectedItems, value]);
 
         event.currentTarget.innerHTML = '';
       },
-      [selectedItems, error, validateValue, onChange]
+      [selectedItems, error, validateValue, updateItems]
     );
 
-    const handleRemove: React.MouseEventHandler<SVGSVGElement> = useCallback(
-      (event) => {
-        const el = event.currentTarget;
-        const valueToRemove = el.dataset.value;
-
+    const handleRemove = useCallback(
+      (valueToRemove: string) => {
         if (!selectedItems || selectedItems.length === 0) return;
 
-        onChange?.(selectedItems.filter((i) => i !== valueToRemove));
+        updateItems(selectedItems.filter((i) => i !== valueToRemove));
       },
-      [onChange, selectedItems]
+      [updateItems, selectedItems]
     );
 
     return (
-      <>
+      <Field>
+        {label && <Label>{label}</Label>}
         <InputStyle>
           {selectedItems?.map((item) => (
-            <ItemStyle key={item}>
-              {item}
-              <CancelIcon data-value={item} onClick={handleRemove} />
-            </ItemStyle>
+            <TagItem key={item} value={item} onRemove={handleRemove} />
           ))}
           <InputCursor
-            placeholder={selectedItems?.length === 0 ? props.placeholder : ''}
+            placeholder={
+              selectedItems && selectedItems.length > 0 ? '' : placeholder
+            }
             contentEditable
             onKeyDown={handleKeyDown}
           />
         </InputStyle>
         {error && <ErrorMsg>{error}</ErrorMsg>}
-      </>
+      </Field>
     );
   }
 );

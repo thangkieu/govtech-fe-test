@@ -12,4 +12,10 @@ export const routes = [
     auth: true,
     component: loadable(() => import('../pages/DashboardPage')),
   },
+  {
+    path: '/apps/staff_profiles',
+    exact: true,
+    auth: true,
+    component: loadable(() => import('../pages/StaffProfileFetcher')),
+  },
 ];

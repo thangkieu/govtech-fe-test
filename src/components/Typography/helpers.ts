@@ -3,7 +3,10 @@ import { TypographyProps } from './Typography';
 
 export const generateStyle = (
   p: ThemedStyledProps<
-    Pick<TypographyProps, 'weight' | 'fontStyle' | 'appearance' | 'space'>,
+    Pick<
+      TypographyProps,
+      'weight' | 'fontStyle' | 'appearance' | 'space' | 'align'
+    >,
     DefaultTheme
   >
 ) => {
@@ -14,6 +17,8 @@ export const generateStyle = (
   if (p.fontStyle) styleStr += `font-style: ${p.fontStyle};`;
 
   if (p.appearance) styleStr += `color: ${p.theme.colors[p.appearance]};`;
+
+  if (p.align) styleStr += `text-align: ${p.align};`;
 
   switch (p.space) {
     case 'none':

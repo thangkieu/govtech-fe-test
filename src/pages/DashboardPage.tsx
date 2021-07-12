@@ -5,7 +5,7 @@ import { AppModule } from '../components/AppModule';
 import { LoadingIcon } from '../components/Icons';
 import { LayoutBasic } from '../components/Layout/Basic';
 import { userInfoState } from '../recoil-atoms/user-info';
-import { useGetRequest } from '../utils/useRequest';
+import { useAuthRequest } from '../utils/useRequest';
 
 const AppList = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const AppModuleCol = styled.div`
 export const DashboardPage = memo((props) => {
   const userInfo = useRecoilValue(userInfoState);
 
-  const { error, loading, data } = useGetRequest<FetchAppRespSuccess>(
+  const { error, loading, data } = useAuthRequest<FetchAppRespSuccess>(
     '/auth/get_apps'
   );
 

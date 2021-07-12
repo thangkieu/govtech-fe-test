@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { LayoutSide } from '../../components/Layout/Side';
+import { Logo } from '../../components/Logo';
 import { Typography } from '../../components/Typography';
 import { getOTP, login } from '../../services/auth';
 import { isValid } from '../../utils/helpers';
@@ -12,6 +13,10 @@ import { Step2 } from './Step2';
 
 const SubText = styled(Typography)`
   margin-top: 0.5em;
+`;
+
+const LogoStyle = styled(Logo)`
+  font-size: 3em;
 `;
 
 export const LoginPage = memo((props) => {
@@ -25,11 +30,14 @@ export const LoginPage = memo((props) => {
     if (!email || !isValid('email', email)) return;
 
     toggleLoading(true);
-    await getOTP(email);
+    const resp = await getOTP(email);
+
+    toggleLoading(false);
+
+    if (!resp) return;
 
     setEmail(email);
     setStep(2);
-    toggleLoading(false);
   }, []);
 
   const handleSubmitOtp = useCallback(
@@ -47,9 +55,7 @@ export const LoginPage = memo((props) => {
 
   return (
     <LayoutSide>
-      <Typography type="h1" space="none">
-        CapDev<strong>Portal</strong>
-      </Typography>
+      <LogoStyle />
       <SubText appearance="subtle" space="lg" fontStyle="italic">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
       </SubText>

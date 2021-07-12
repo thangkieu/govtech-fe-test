@@ -16,6 +16,11 @@ declare module 'styled-components' {
       subtle: string;
       success: string;
       text: string;
+      tags: {
+        success: string;
+        danger: string;
+        primary: string;
+      };
     };
     spacing: {
       sm: string;

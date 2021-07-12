@@ -24,8 +24,6 @@ export const GlobalStyle = createGlobalStyle`
   p {
     line-height: 1.4;
   }
-
-  h1 { font-size: 3em }
   
   button { color: inherit; }
   
@@ -37,6 +35,42 @@ export const GlobalStyle = createGlobalStyle`
     }
     to {
       transform: rotate(360deg);
+    }
+  }
+
+  .rc-notification-notice {
+    padding: 0.5rem 1rem;
+    border: 1px solid ${(p) => p.theme.colors.border};
+    box-shadow: 2px 2px 10px #ddd;
+    max-width: 300px;
+    line-height: 1.4;
+    border-radius: 0.7em;
+    padding: 0.5rem 1rem;
+  }
+
+  .noti-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    margin-top: 3px;
+  }
+
+  .noti-content {
+    display: flex;  
+    line-height: 1.4; 
+  }
+
+  .noti-title {
+    margin: 0;
+    font-weight: normal;
+    margin-bottom: 0.2rem;
+    color: ${(p) => p.theme.colors.danger};
+  }
+
+  .noti-error {
+    .noti-icon {
+      fill: ${(p) => p.theme.colors.danger};
     }
   }
 `;

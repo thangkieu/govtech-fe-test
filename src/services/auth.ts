@@ -24,6 +24,8 @@ export const login = async (email: string, otp: number) => {
       }
     );
 
+    if (!resp) throw Error('Error');
+
     saveToken(resp.jwt);
 
     return resp;

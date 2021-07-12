@@ -70,7 +70,7 @@ export const Step2 = memo<StepProps>(({ loading, email, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Typography space="sm" appearance="subtle">
+      <Typography space="md" appearance="subtle">
         An OTP has been emailed to you. Enter OTP below.
       </Typography>
 

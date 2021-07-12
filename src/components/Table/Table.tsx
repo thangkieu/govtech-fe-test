@@ -1,6 +1,5 @@
 import React, { memo, FC } from 'react';
 import styled from 'styled-components';
-import { Typography } from '../Typography';
 import { Error } from '../Error';
 import { useMemo } from 'react';
 
@@ -11,7 +10,7 @@ type ColDef = {
 
 interface TableProps {
   colDefs: ColDef[];
-  data: Record<string, string>[];
+  data?: Record<string, string>[];
 }
 
 const TableStle = styled.table`
@@ -66,7 +65,7 @@ export const Table: FC<TableProps> = memo(({ colDefs, data }) => {
             <td colSpan={colDefs.length}>No data</td>
           </NoDataRow>
         ) : (
-          data.map((rowData, idx) => (
+          data?.map((rowData, idx) => (
             <tr key={idx}>
               {colDefs.map((h) => (
                 <td key={rowData[h.field]}>{rowData[h.field]}</td>

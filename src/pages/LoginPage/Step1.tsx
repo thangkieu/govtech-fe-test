@@ -43,7 +43,7 @@ export const Step1 = memo<StepProps>(({ loading, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Typography space="sm" appearance="subtle">
+      <Typography space="md" appearance="subtle">
         Enter your Email Addess and we will send you One-Time Password (OTP) to
         enter below.
       </Typography>

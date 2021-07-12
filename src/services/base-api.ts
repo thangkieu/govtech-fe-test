@@ -1,3 +1,5 @@
+import { notify } from '../utils/notification';
+
 const API_URL: string =
   process.env.REACT_APP_BASE_API || process.env.STORYBOOK_BASE_API || '';
 
@@ -20,18 +22,44 @@ export const genRequest = (
   options: RequestInit
 ) => {
   const token = getToken();
+  const { headers, ...restOtp } = options || {};
 
   return fetch(`${baseAPI}${url}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options?.headers,
+      ...headers,
     },
-    ...options,
-  }).then((resp) => {
-    return resp.json();
-  });
+    ...restOtp,
+  })
+    .then((resp) => {
+      if (resp.status < 200 || resp.status >= 300) {
+        resp.json().then((error: RespError) => {
+          let message: string = '';
+          if (typeof error.detail === 'string') {
+            message = error.detail;
+          } else if (error.detail?.length > 0) {
+            message = error.detail.map((i) => i.msg).join('\n');
+          }
+          notify.error(message);
+        });
+
+        throw Error('');
+      }
+
+      if (
+        headers &&
+        (headers as any)?.['Content-Type'] !== 'application/json'
+      ) {
+        return resp;
+      }
+
+      return resp.json();
+    })
+    .catch((err) => {
+      if (err.message) notify.error(err.message);
+    });
 };
 
 const authRequest = (url: string, options: RequestInit) => {

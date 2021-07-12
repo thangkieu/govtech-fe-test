@@ -9,7 +9,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Field = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
 const InputStyle = styled.input<Pick<InputProps, 'block'>>`

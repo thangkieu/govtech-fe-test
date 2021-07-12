@@ -25,7 +25,7 @@ export const AuthRoute = memo<RouteProps>((props) => {
     }
 
     getInfo();
-  }, []);
+  }, [history, setUserInfo]);
 
   return <Route {...props} />;
 });
