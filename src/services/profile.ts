@@ -20,9 +20,11 @@ export const postProfileRequest = (
     ...options,
   });
 
-export const getUserInfo = async () => {
+export const getUserInfo = async (signalToAbort: AbortSignal) => {
   try {
-    const resp = await getProfileRequest('/profiles/test_jwt');
+    const resp = await getProfileRequest('/profiles/test_jwt', {
+      signal: signalToAbort,
+    });
 
     return resp;
   } catch (error) {

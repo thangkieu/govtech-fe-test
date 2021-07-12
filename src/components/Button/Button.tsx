@@ -117,4 +117,5 @@ export const Button: FC<ButtonProps> = memo(
 
 Button.defaultProps = {
   outline: true,
+  htmlType: 'button',
 };

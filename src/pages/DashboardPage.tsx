@@ -6,6 +6,7 @@ import { LoadingIcon } from '../components/Icons';
 import { LayoutBasic } from '../components/Layout/Basic';
 import { userInfoState } from '../recoil-atoms/user-info';
 import { useAuthRequest } from '../utils/useRequest';
+import { Error } from '../components/Error';
 
 const AppList = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ const AppModuleCol = styled.div`
 export const DashboardPage = memo((props) => {
   const userInfo = useRecoilValue(userInfoState);
 
-  const { error, loading, data } = useAuthRequest<FetchAppRespSuccess>(
+  const { loading, data } = useAuthRequest<FetchAppRespSuccess>(
     '/auth/get_apps'
   );
 
@@ -58,6 +59,7 @@ export const DashboardPage = memo((props) => {
           </AppModuleCol>
         ))}
       </AppList>
+      {!data && !loading && <Error message="Cannot find App list" />}
     </LayoutBasic>
   );
 });

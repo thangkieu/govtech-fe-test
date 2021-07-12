@@ -9,7 +9,7 @@ const Container = styled.div<{ bg?: string }>`
   ${(p) =>
     p.bg &&
     css`
-      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+      background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),
         url('${p.bg}');
       background-size: cover;
     `}
@@ -25,7 +25,7 @@ const SideStyle = styled.div`
   justify-content: center;
   padding: 1em 4em;
   flex-direction: column;
-  box-shadow: -5px 0 10px rgba(255, 255, 255, 0.4);
+  box-shadow: -5px 0 10px rgba(255, 255, 255, 0.3);
 `;
 
 export const LayoutSide = memo((props) => {

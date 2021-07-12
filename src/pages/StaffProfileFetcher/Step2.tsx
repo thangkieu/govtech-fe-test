@@ -2,7 +2,7 @@ import React, { memo, useCallback, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Button } from '../../components/Button';
-import { DownloadIcon } from '../../components/Icons';
+import { DownloadIcon, LoadingIcon } from '../../components/Icons';
 import { Table } from '../../components/Table';
 import { Typography } from '../../components/Typography';
 import { postProfileRequest } from '../../services/profile';
@@ -47,16 +47,28 @@ const Section = styled.section`
   margin-bottom: 2em;
 `;
 
+const LoadingWrapper = styled.div`
+  display: flex;
+  margin-top: 3em;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 2em;
+`;
+
 export const Step2 = memo<StepProps>(({ data: payload, onBack }) => {
   const [respData, setResp] = useState<FetchProfileDataResp>();
   const [downloading, toggleDownloading] = useState(false);
+  const [fetchingProfiles, toggleFetchingProfiles] = useState(false);
 
   const fetchData = useCallback(async () => {
+    toggleFetchingProfiles(true);
     const resp: FetchProfileDataResp = await postProfileRequest(
       '/profiles/fetch_by_json',
       payload
     );
     setResp(resp);
+    toggleFetchingProfiles(false);
   }, [payload]);
 
   const handleDownloadCSV = useCallback(async () => {
@@ -86,6 +98,14 @@ export const Step2 = memo<StepProps>(({ data: payload, onBack }) => {
   useEffect(() => {
     if (Object.keys(payload).length > 0) fetchData();
   }, [payload]);
+
+  if (fetchingProfiles) {
+    return (
+      <LoadingWrapper>
+        <LoadingIcon className="icon" />
+      </LoadingWrapper>
+    );
+  }
 
   return (
     <div>

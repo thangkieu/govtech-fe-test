@@ -1,4 +1,5 @@
-import React, { memo, useRef, useCallback } from 'react';
+import React, { memo, useRef, useCallback, useState } from 'react';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { Button } from '../../components/Button';
 import { MultipleInput } from '../../components/MultipleInput';
@@ -16,25 +17,35 @@ interface StepProps {
 }
 
 export const Step1 = memo<StepProps>(({ onSubmit, onBack, defaultValue }) => {
-  const emailsRef = useRef<string[] | undefined>(defaultValue?.emails);
-  const employeeNumbersRef = useRef<string[] | undefined>(
-    defaultValue?.emp_nums
-  );
+  const [payload, setPayload] = useState<StaffFetcherData>({
+    emails: defaultValue?.emails,
+    emp_nums: defaultValue?.emp_nums,
+  });
 
   const handleSubmit = useCallback(() => {
-    onSubmit?.({
-      emails: emailsRef.current,
-      emp_nums: employeeNumbersRef.current,
-    });
-  }, [onSubmit]);
+    onSubmit?.(payload);
+  }, [payload, onSubmit]);
 
-  const handleEmailsChange = useCallback((payload: string[]) => {
-    emailsRef.current = payload;
-  }, []);
+  const handleEmailsChange = useCallback(
+    (emails: string[]) => {
+      setPayload({ ...payload, emails });
+    },
+    [payload]
+  );
 
-  const handleEmployeeNumbersChange = useCallback((payload: string[]) => {
-    employeeNumbersRef.current = payload;
-  }, []);
+  const handleEmployeeNumbersChange = useCallback(
+    (employNums: string[]) => {
+      setPayload({ ...payload, emp_nums: employNums });
+    },
+    [payload]
+  );
+
+  const hasData = useMemo(() => {
+    return !(
+      (!payload.emails || payload.emails.length === 0) &&
+      (!payload.emp_nums || payload.emp_nums.length === 0)
+    );
+  }, [payload]);
 
   return (
     <div>
@@ -63,7 +74,12 @@ export const Step1 = memo<StepProps>(({ onSubmit, onBack, defaultValue }) => {
         >
           Back
         </Button>
-        <Button type="primary" htmlType="button" onClick={handleSubmit}>
+        <Button
+          type="primary"
+          htmlType="button"
+          onClick={handleSubmit}
+          disabled={!hasData}
+        >
           Next
         </Button>
       </ActionStyle>

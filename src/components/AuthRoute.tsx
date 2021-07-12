@@ -12,8 +12,9 @@ export const AuthRoute = memo<RouteProps>((props) => {
   const setUserInfo = useSetRecoilState(userInfoState);
 
   useEffect(() => {
+    const abort = new AbortController();
     async function getInfo() {
-      const resp = await getUserInfo();
+      const resp = await getUserInfo(abort.signal);
 
       if (!resp) {
         history.push('/login');
@@ -25,6 +26,10 @@ export const AuthRoute = memo<RouteProps>((props) => {
     }
 
     getInfo();
+
+    return () => {
+      abort.abort();
+    };
   }, [history, setUserInfo]);
 
   return <Route {...props} />;

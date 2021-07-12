@@ -14,7 +14,7 @@ export const theme: DefaultTheme = {
     success: '#39A6A3',
     text: '#333333',
     tags: {
-      danger: '#ff8f8f',
+      danger: '#fdc8c8',
       success: '#d0ffd1',
       primary: '#c3e2fb',
     },

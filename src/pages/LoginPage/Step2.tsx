@@ -90,7 +90,7 @@ export const Step2 = memo<StepProps>(({ loading, email, onSubmit }) => {
         >
           Login
         </Button>
-        <Button outline={false} onClick={handleResend}>
+        <Button htmlType="button" outline={false} onClick={handleResend}>
           <Typography
             type="span"
             appearance={resendStatus ? 'success' : undefined}
