@@ -112,17 +112,17 @@ export const Step2 = memo<StepProps>(({ data: payload, onBack }) => {
     <div>
       <Section>
         <MissingItems
-          label="Emails not found"
+          label="Email(s) not found"
           data={respData?.missing_emails}
         />
         <MissingItems
-          label="Employee numbers not found"
+          label="Employee number(s) not found"
           data={respData?.missing_emp_nums}
         />
       </Section>
 
       <Typography type="h2" weight="bold" space="sm">
-        Found Profiles
+        Found Profile(s)
       </Typography>
       <Table colDefs={tableColDefs} data={respData?.profiles}></Table>
       <ActionStyle>

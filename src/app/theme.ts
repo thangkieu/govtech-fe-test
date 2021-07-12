@@ -11,7 +11,7 @@ export const theme: DefaultTheme = {
     tableRowEven: '#f9f9f9',
     danger: '#ce0606',
     subtle: '#8c8a8a',
-    success: '#39A6A3',
+    success: '#5D8233',
     text: '#333333',
     tags: {
       danger: '#fdc8c8',

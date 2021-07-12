@@ -51,16 +51,19 @@ export const Step1 = memo<StepProps>(({ onSubmit, onBack, defaultValue }) => {
     <div>
       <Typography space="sm" appearance="subtle" align="center">
         Enter list of emails and/or employee numbers to search.
+        <br />
+        Press <strong>Enter</strong> or type <strong>comma (,)</strong> to add
+        item
       </Typography>
       <MultipleInput
-        placeholder="Press Enter to add item..."
+        placeholder="Press enter or type comma (,) to add item..."
         label="Emails"
         onChange={handleEmailsChange}
         pattern="email"
         defaultItems={defaultValue?.emails}
       />
       <MultipleInput
-        placeholder="Press Enter to add item..."
+        placeholder="Press enter or type comma (,) to add item..."
         label="Employee Numbers"
         onChange={handleEmployeeNumbersChange}
         defaultItems={defaultValue?.emp_nums}

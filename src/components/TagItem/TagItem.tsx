@@ -15,7 +15,7 @@ const ItemStyle = styled.span<Pick<TagItemProps, 'appearance'>>`
   padding: 0 0.5em;
   background-color: ${(p) => p.theme.colors.tags[p.appearance || 'primary']};
   border: 1px solid ${(p) => p.theme.colors[p.appearance || 'primary']};
-  border-radius: 4px;
+  border-radius: 6px;
   margin: 0 0.5em 0.5em 0;
   display: inline-flex;
   align-items: center;

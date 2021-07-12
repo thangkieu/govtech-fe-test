@@ -53,6 +53,8 @@ export const Step1 = memo<StepProps>(({ loading, onSubmit }) => {
         block
         label="Email"
         onChange={handleChange}
+        type="email"
+        errorMessage="Email is invalid"
       />
       <ActionStyle>
         <Button

@@ -80,6 +80,7 @@ export const Step2 = memo<StepProps>(({ loading, email, onSubmit }) => {
         block
         label="One-Time Password"
         onChange={handleChange}
+        type="number"
       />
       <ActionStyle>
         <Button

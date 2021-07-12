@@ -59,7 +59,7 @@ export const MultipleInput: FC<InputProps> = memo(
     const validateValue = useCallback(
       (value: string) => {
         if (pattern && !isValid(pattern, value)) {
-          setError('Value is invalid');
+          setError(`"${value}" is invalid.`);
           return false;
         }
 
@@ -94,7 +94,7 @@ export const MultipleInput: FC<InputProps> = memo(
         }
 
         // add new item
-        if (event.key !== 'Enter') return;
+        if (event.key !== 'Enter' && event.key !== ',') return;
 
         event.preventDefault();
 
