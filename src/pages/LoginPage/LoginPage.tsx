@@ -2,11 +2,14 @@ import React, { memo } from 'react';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { LayoutSide } from '../../components/Layout/Side';
 import { Logo } from '../../components/Logo';
 import { Typography } from '../../components/Typography';
+import { userInfoState } from '../../recoil-atoms/user-info';
 import { getOTP, login } from '../../services/auth';
+import { getUserInfo } from '../../services/profile';
 import { isValid } from '../../utils/helpers';
 import { Step1 } from './Step1';
 import { Step2 } from './Step2';
@@ -25,6 +28,8 @@ export const LoginPage = memo((props) => {
   const [loading, toggleLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
+
+  const setUserInfo = useSetRecoilState(userInfoState);
 
   const handleSubmitEmail = useCallback(async (email: string) => {
     if (!email || !isValid('email', email)) return;
@@ -46,11 +51,13 @@ export const LoginPage = memo((props) => {
 
       toggleLoading(true);
       const resp = await login(email, otp);
+      const useInfo = await getUserInfo();
       toggleLoading(false);
 
+      if (useInfo) setUserInfo(useInfo);
       if (resp) history.push('/');
     },
-    [email, history]
+    [email, history, setUserInfo]
   );
 
   return (
