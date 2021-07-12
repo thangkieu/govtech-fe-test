@@ -1,8 +1,5 @@
 import { notify } from '../utils/notification';
 
-const API_URL: string =
-  process.env.REACT_APP_BASE_API || process.env.STORYBOOK_BASE_API || '';
-
 const TOKEN_KEY = 'access_token';
 export function removeToken() {
   localStorage.removeItem(TOKEN_KEY);
@@ -61,13 +58,3 @@ export const genRequest = (
       if (err.message) notify.error(err.message);
     });
 };
-
-const authRequest = (url: string, options: RequestInit) => {
-  return genRequest(API_URL, url, options);
-};
-
-export const getRequest = (url: string, options?: RequestInit) =>
-  authRequest(url, { ...options, method: 'GET' });
-
-export const postRequest = (url: string, data: any) =>
-  authRequest(url, { method: 'POST', body: JSON.stringify(data) });

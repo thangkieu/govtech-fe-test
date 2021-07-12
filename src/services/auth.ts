@@ -1,4 +1,17 @@
-import { postRequest, removeToken, saveToken } from './base-api';
+import { genRequest, removeToken, saveToken } from './base-api';
+
+const API_URL: string =
+  process.env.REACT_APP_BASE_API || process.env.STORYBOOK_BASE_API || '';
+
+const authRequest = (url: string, options: RequestInit) => {
+  return genRequest(API_URL, url, options);
+};
+
+export const getRequest = (url: string, options?: RequestInit) =>
+  authRequest(url, { ...options, method: 'GET' });
+
+export const postRequest = (url: string, data: any) =>
+  authRequest(url, { method: 'POST', body: JSON.stringify(data) });
 
 export const getOTP = async (email: string) => {
   try {

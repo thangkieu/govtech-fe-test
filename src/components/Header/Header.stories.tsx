@@ -2,7 +2,6 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Header as HeaderCmp } from './Header';
-import { ExitIcon } from '../Icons';
 
 export default {
   title: 'Header',

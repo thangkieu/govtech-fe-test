@@ -1,5 +1,5 @@
 import React, { memo, FC } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { generateStyle } from './helpers';
 
 export interface TypographyProps {

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getRequest } from '../services/base-api';
-import { postProfileRequest } from '../services/profile';
+import { getRequest } from '../services/auth';
 
 export function useRequest<T>(
   request: any,
@@ -32,6 +31,7 @@ export function useRequest<T>(
     return () => {
       controller.abort();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
   return useMemo(() => ({ loading, data, error }), [loading, data, error]);

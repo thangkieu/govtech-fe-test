@@ -19,7 +19,7 @@ const NotFound = memo(() => {
   return (
     <Wrapper>
       <h1>Oh no!!!</h1>
-      <p>Lost in your money 😆</p>
+      <p>Page not found 😆</p>
       <Link to="/">Go back home</Link>
     </Wrapper>
   );

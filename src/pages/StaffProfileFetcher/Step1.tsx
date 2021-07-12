@@ -1,4 +1,4 @@
-import React, { memo, useRef, useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { useMemo } from 'react';
 import styled from 'styled-components';
 import { Button } from '../../components/Button';

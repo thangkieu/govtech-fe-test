@@ -97,6 +97,7 @@ export const Step2 = memo<StepProps>(({ data: payload, onBack }) => {
 
   useEffect(() => {
     if (Object.keys(payload).length > 0) fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payload]);
 
   if (fetchingProfiles) {

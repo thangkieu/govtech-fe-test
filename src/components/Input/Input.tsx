@@ -1,6 +1,5 @@
 import React, { memo, FC, InputHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
-import { Typography } from '../Typography';
 import { Label } from '../Typography/TypoVariant';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

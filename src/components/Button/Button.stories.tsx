@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Button as ButtonCmp } from './Button';
 import { ExitIcon } from '../Icons';
-import { postRequest } from '../../services/base-api';
+import { postRequest } from '../../services/auth';
 
 export default {
   title: 'Button',
