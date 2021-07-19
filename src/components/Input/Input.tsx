@@ -21,6 +21,8 @@ const InputStyle = styled.input<Pick<InputProps, 'block'>>`
   outline: none;
   border-radius: 0.5em;
   line-height: 2em;
+  background-color: white;
+
   ${(p) =>
     p.block &&
     css`

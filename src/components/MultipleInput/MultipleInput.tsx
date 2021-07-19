@@ -25,6 +25,7 @@ const InputStyle = styled.div`
   flex-wrap: wrap;
   min-height: 71px;
   align-items: flex-start;
+  background-color: white;
 
   &:focus {
     border-color: ${(p) => p.theme.colors.primary};
